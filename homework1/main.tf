@@ -93,23 +93,13 @@ resource "aws_instance" "whiskey2" {
         Owner = "ItzickS"
         purpose = "whiskey"
   }
- provisioner "file" {
-    source = "/home/ec2-user/Homework1/scripts"
-    destination = "/home/ec2-user/"
-  }
- provisioner "remote-exec" {
-    inline = [
-        "sudo amazon-linux-extras install -y nginx1",
-        "sudo systemctl start nginx",
-        "sudo /usr/bin/chmod +x /home/ec2-user/scripts/script.sh",
-        "sudo /home/ec2-user/scripts/script.sh"
-    ]
- }
- connection {
-        type = "ssh"
-        user = "ec2-user"
-        private_key = file("./linux-vm.pem")
-        host = self.public_ip
- }
+  user_data = <<EOF
+                #!/bin/bash
+                sudo sudo amazon-linux-extras install -y nginx1
+                sudo systemctl start ngnix
+                sudo mv /usr/share/nginx/html/index.html /usr/share/nginx/html/index.html.bak
+                echo "<html xmlns='http://www.w3.org/1999/xhtml' xml:lang='en'><head><title> Welcome to Grandpa's Whiskey </title></head><body><h1> Welcome to Grandpa's Whiskey </h1></body></html>" | sudo tee -a /usr/share/nginx/html/index.html
+                sudo systemctl restart nginx.service
+              EOF
 }
 
