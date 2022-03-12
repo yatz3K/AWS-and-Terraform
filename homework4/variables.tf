@@ -9,12 +9,6 @@ variable "nginx_instance_type" {
   default = "t3.micro"
 }
 
-variable "db_instance_type" {
-  description = "type of db instances"
-  type = string
-  default = "t2.micro"
-}
-
 variable "key_name" {
   default     = "linux-vm"
   description = "The key name of the Key Pair to use for the instance"
@@ -22,10 +16,6 @@ variable "key_name" {
 }
 
 variable "nginx_instances_count" {
-  default = 2
-}
-
-variable "DB_instances_count" {
   default = 2
 }
 
@@ -64,5 +54,4 @@ variable "ami" {
     description = "default AMI for my project"
     type = string
     default = "ami-033b95fb8079dc481"
-  
 }

@@ -3,21 +3,21 @@ resource "aws_instance" "db_whiskey" {
     ami = var.ami
     instance_type = var.db_instance_type
     key_name = var.key_name
-    subnet_id = module.vpc.private_subnets_id[count.index]
+    subnet_id = var.private_subnets_id[count.index]
     associate_public_ip_address = false
     vpc_security_group_ids = [aws_security_group.DB_instnaces_access.id]
 
     tags = {
-        "Name" = "DB-${regex(".$", data.aws_availability_zones.available.names[count.index])}"
+        "Name" = "DB"
     }
 }
 
 resource "aws_security_group" "DB_instnaces_access" {
-  vpc_id = module.vpc.vpc_id
+  vpc_id = var.vpc_id
   name   = "DB-access"
 
   tags = {
-    "Name" = "DB-access-${module.vpc.vpc_id}"
+    "Name" = "DB-access-${var.vpc_id}"
   }
 }
 
@@ -40,4 +40,3 @@ resource "aws_security_group_rule" "DB_outbound_anywhere" {
   type              = "egress"
   cidr_blocks       = ["0.0.0.0/0"]
 }
-
