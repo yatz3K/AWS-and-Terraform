@@ -1,20 +1,21 @@
 terraform {
-  backend "s3" {
-    bucket = "itzick-opsschool-whiskey"
-    key = "whiskey/terraform.tfstate"
-    profile = "default"
-    region = "us-east-1"
+  required_providers {
+    aws = {
+      source = "hashicorp/aws"
+      version = "3.74.3"
+    }
   }
+  cloud {
+    hostname = "app.terraform.io"
+    organization = "itzick-ops-school"
+    workspaces {
+      name = "Whiskey-Itzick"
+    }
+  }
+  required_version = ">= 0.14.9"
 }
 
 provider "aws" {
   profile = "default"
   region  = var.aws_region
-
-  default_tags {
-    tags = {
-      Owner = var.owner_tag
-      Purpose = var.purpose_tag
-    }
-  }
 }

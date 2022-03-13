@@ -39,17 +39,6 @@ variable "volumes_type" {
   default = "gp2"
 }
 
-variable "purpose_tag" {
-  default = "Whiskey"
-  type    = string
-}
-
-variable "owner_tag" {
-  description = "The owner tag will be applied to every resource in the project through the 'default variables' feature"
-  default = "Itzick"
-  type    = string
-}
-
 variable "ami" {
     description = "default AMI for my project"
     type = string
