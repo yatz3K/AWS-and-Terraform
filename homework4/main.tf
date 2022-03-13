@@ -1,5 +1,8 @@
+
 module "vpc" {
-  source = "./vpc-module"
+  source  = "app.terraform.io/itzick-ops-school/networking/aws"
+  version = "1.0.0"
+  # insert required variables here
   vpc_cidr_block = "192.168.0.0/16"
   private_subnet_list = ["192.168.10.0/24", "192.168.20.0/24"]
   public_subnet_list = ["192.168.100.0/24", "192.168.200.0/24"]
